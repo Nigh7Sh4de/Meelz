@@ -1,0 +1,13 @@
+var ExampleApplication = React.createClass({
+  render: function () {
+    return React.createElement(
+      'h1',
+      null,
+      'HI'
+    );
+  }
+});
+
+var start = new Date().getTime();
+
+ReactDOM.render(React.createElement(ExampleApplication, null), document.getElementById('container'));

@@ -1,8 +1,12 @@
-// main.js
-var React = require('react');
-var ReactDOM = require('react-dom');
+var ContainerDiv = React.createClass({
+  render: function() {
+    return (<h1>HI</h1>);
+  }
+});
+
+var start = new Date().getTime();
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('content')
+    <ContainerDiv />,
+    document.getElementById('container')
 );
