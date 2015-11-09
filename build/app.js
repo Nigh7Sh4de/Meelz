@@ -1,4 +1,4 @@
-var ExampleApplication = React.createClass({
+var ContainerDiv = React.createClass({
   render: function () {
     return React.createElement(
       'h1',
@@ -10,4 +10,4 @@ var ExampleApplication = React.createClass({
 
 var start = new Date().getTime();
 
-ReactDOM.render(React.createElement(ExampleApplication, null), document.getElementById('container'));
+ReactDOM.render(React.createElement(ContainerDiv, null), document.getElementById('container'));
