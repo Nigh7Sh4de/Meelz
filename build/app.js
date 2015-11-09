@@ -8,6 +8,4 @@ var ContainerDiv = React.createClass({
   }
 });
 
-var start = new Date().getTime();
-
 ReactDOM.render(React.createElement(ContainerDiv, null), document.getElementById('container'));

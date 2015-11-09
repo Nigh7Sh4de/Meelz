@@ -4,8 +4,6 @@ var ContainerDiv = React.createClass({
   }
 });
 
-var start = new Date().getTime();
-
 ReactDOM.render(
     <ContainerDiv />,
     document.getElementById('container')
