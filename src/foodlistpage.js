@@ -23,7 +23,7 @@ var CreateFoodButton = React.createClass({
     },
     render: function() {
         return (
-            <button onClick={this.handleClick}>Create</button>
+            <button onClick={this.handleClick}>+ Create</button>
         );
     }
 })
