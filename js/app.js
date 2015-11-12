@@ -41,11 +41,19 @@ var FoodItemList = React.createClass({
     }
 });
 
-ReactDOM.render(React.createElement(FoodItemList, { foods: _foods }), document.getElementById('FoodItemList'));
+var FoodItemListPage = React.createClass({
+    render: function () {
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "button",
+                null,
+                "Create"
+            ),
+            React.createElement(FoodItemList, { foods: _foods })
+        );
+    }
+});
 
-/*
-ReactDOM.render(
-    <FoodItem food="" />,
-    document.getElementById('FoodItem')
-)
-*/
+ReactDOM.render(React.createElement(FoodItemListPage, null), document.getElementById('react-app'));

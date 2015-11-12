@@ -15,9 +15,7 @@ var _foods = [
   "name": "Spaghetti",
   "info": {}
 }
-
 ]
-
 
 var FoodItem = React.createClass({
     render: function () {
@@ -42,15 +40,19 @@ var FoodItemList = React.createClass({
     }
 })
 
-ReactDOM.render(
-    <FoodItemList foods={_foods} />,
-    document.getElementById('FoodItemList')
-)
+var FoodItemListPage = React.createClass({
+    render: function() {
+        return (
+            <div>
+                <button>Create</button>
+                <FoodItemList foods={_foods} />
+            </div>
+        );
+    }
+})
 
-/*
 ReactDOM.render(
-    <FoodItem food="" />,
-    document.getElementById('FoodItem')
-)
-*/
+    <FoodItemListPage />,
+    document.getElementById('react-app')
+);
 
