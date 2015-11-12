@@ -1,17 +1,3 @@
-var _foods = [{
-    "name": "Mashed Potatoes",
-    "info": {}
-}, {
-    "name": "Chicken Breast",
-    "info": {}
-}, {
-    "name": "Vegetables",
-    "info": {}
-}, {
-    "name": "Spaghetti",
-    "info": {}
-}];
-
 var CreateFoodButton = React.createClass({
     handleClick: function (event) {
         redraw(Pages.CreateFoodPage);
@@ -19,8 +5,21 @@ var CreateFoodButton = React.createClass({
     render: function () {
         return React.createElement(
             "button",
-            { onClick: this.handleClick },
+            { className: "btn btn-default", onClick: this.handleClick },
             "+ Create"
+        );
+    }
+});
+
+var SettingsButton = React.createClass({
+    handleClick: function (e) {
+        redraw(Pages.EditInfoPropsPage);
+    },
+    render: function () {
+        return React.createElement(
+            "button",
+            { className: "btn btn-default", onClick: this.handleClick },
+            React.createElement("span", { className: "glyphicon glyphicon-cog" })
         );
     }
 });
@@ -32,7 +31,7 @@ var FoodItem = React.createClass({
             null,
             React.createElement(
                 "button",
-                null,
+                { className: "btn btn-success" },
                 "+"
             ),
             this.props.food.name
@@ -59,7 +58,12 @@ var FoodItemListPage = React.createClass({
         return React.createElement(
             "div",
             null,
-            React.createElement(CreateFoodButton, null),
+            React.createElement(
+                "div",
+                { className: "btn-group" },
+                React.createElement(CreateFoodButton, null),
+                React.createElement(SettingsButton, null)
+            ),
             React.createElement(FoodItemList, { foods: _foods })
         );
     }
