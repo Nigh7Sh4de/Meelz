@@ -1,13 +1,29 @@
+var EditableInfoProperty = React.createClass({
+    render: function () {
+        return React.createElement(
+            "div",
+            { className: "input-group" },
+            React.createElement(
+                "span",
+                { className: "input-group-addon" },
+                this.props.name
+            ),
+            React.createElement("input", { className: "form-control", id: this.props.name, type: "text", onChange: this.props.onchange, ref: "{this.props.name}",
+                value: this.props.value })
+        );
+    }
+});
+
 var CreateFoodPage = React.createClass({
     handleClick: function (event) {
         event.preventDefault();
-        _foods.push({
-            "name": this.refs.name.value,
-            "info": {
-                "calories": this.refs.calories.value || 0
-            }
-        });
-        redraw(Pages.FoodItemListPage);
+        var duplicates = false;
+        for (var i = 0; i < _foods.length; i++) if (_foods[i].name == this.state.name) {
+            console.error("Cannot insert duplicate names.");
+            return;
+        }
+        _foods.push(this.state);
+        redraw(React.createElement(FoodItemListPage, null));
     },
     getInitialState: function () {
         return {
@@ -15,29 +31,26 @@ var CreateFoodPage = React.createClass({
         };
     },
     handleChange: function (e) {
-        this.setState({ name: e.target.value });
+        var state = {};
+        state[e.target.id] = e.target.value;
+        this.setState(state);
     },
     back: function () {
-        redraw(Pages.FoodItemListPage);
+        redraw(React.createElement(FoodItemListPage, null));
+    },
+    edit: function () {
+        return this.props.food != null && this.props.food.name != null;
     },
     render: function () {
+        var props = _props.map((function (p) {
+            if (this.props.food != null) return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p, value: this.props.food[p] });else {
+                return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p });
+            }
+        }).bind(this));
         return React.createElement(
             "div",
             null,
-            React.createElement("input", { className: "form-control", type: "text", onChange: this.handleChange, ref: "name", placeholder: "name" }),
-            React.createElement("br", null),
-            "Calories: ",
-            React.createElement("input", { className: "form-control", type: "text", ref: "calories", placeholder: "0" }),
-            React.createElement("br", null),
-            "Protein: ",
-            React.createElement("input", { className: "form-control", type: "text", placeholder: "asdf" }),
-            React.createElement("br", null),
-            "Sugar: ",
-            React.createElement("input", { className: "form-control", type: "text", placeholder: "0" }),
-            React.createElement("br", null),
-            "Carbs: ",
-            React.createElement("input", { className: "form-control", type: "text", placeholder: "0" }),
-            React.createElement("br", null),
+            props,
             React.createElement(
                 "div",
                 { className: "btn-group" },
@@ -49,7 +62,7 @@ var CreateFoodPage = React.createClass({
                 React.createElement(
                     "button",
                     { className: "btn btn-primary", disabled: !this.state.name, onClick: this.handleClick },
-                    "+ Create"
+                    this.edit() ? "Save" : "Create"
                 )
             )
         );

@@ -1,6 +1,6 @@
 var CreateFoodButton = React.createClass({
     handleClick: function(event) {
-        redraw(Pages.CreateFoodPage);
+        redraw(<CreateFoodPage />);
     },
     render: function() {
         return (
@@ -11,7 +11,7 @@ var CreateFoodButton = React.createClass({
 
 var SettingsButton = React.createClass({
     handleClick: function(e) {
-        redraw(Pages.EditInfoPropsPage);
+        redraw(<EditInfoPropsPage />);
     },
     render: function() {
         return (
@@ -23,11 +23,17 @@ var SettingsButton = React.createClass({
 })
 
 var FoodItem = React.createClass({
+    editfood: function(e) {
+        redraw(<CreateFoodPage food={this.props.food} />);
+    },
     render: function () {
         return (
-            <div>
+            <div className="card">
                 <button className="btn btn-success">+</button>
                 {this.props.food.name}
+                <button onClick={this.editfood} className="btn btn-default">
+                    <span className="glyphicon glyphicon-cog"></span>
+                </button>
             </div>
         );
     }

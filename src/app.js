@@ -1,4 +1,9 @@
+var _days = [
+    
+]
+
 var _props = [
+    "name",
     "calories",
     "protein",
     "carbs",
@@ -7,34 +12,34 @@ var _props = [
 
 var _foods = [
 {
-  "name": "Mashed Potatoes",
-  "info": {}
+    "name": "Mashed Potatoes",
+    "calories": "123"
 },
 {
-  "name": "Chicken Breast",
-  "info": {}
+    "name": "Chicken Breast",
 },
 {
-  "name": "Vegetables",
-  "info": {}
+    "name": "Vegetables",
 },
 {
-  "name": "Spaghetti",
-  "info": {}
+    "name": "Spaghetti",
 }
 ]
 
 
 var Pages = {
-    FoodItemListPage: <FoodItemListPage />,
-    CreateFoodPage: <CreateFoodPage />,
-    EditInfoPropsPage: <EditInfoPropsPage />
+    FoodItemListPage: FoodItemListPage,//<FoodItemListPage />,
+    CreateFoodPage: CreateFoodPage,//<CreateFoodPage />,
+    EditInfoPropsPage: EditInfoPropsPage//<EditInfoPropsPage />
 }
 
-var redraw = function(page) {
+var redraw = function(comp) {
+    // var comp = (<{page} />);
+    // if (props != null)
+    //     comp = <{page} props={props} />
     ReactDOM.render(
-        page,
+        comp,
         document.getElementById('react-app')
     );
 };
-redraw(Pages.FoodItemListPage);
+redraw(<FoodItemListPage />);

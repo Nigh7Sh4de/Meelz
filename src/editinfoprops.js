@@ -2,7 +2,7 @@ var InfoProperty = React.createClass({
     render: function() {
         return (
             <div>
-                {this.props.prop}
+                {this.props.name}
             </div>
         )
     }
@@ -27,7 +27,7 @@ var CreateNewInfoProp = React.createClass({
         }
     },
     back: function() {
-        redraw(Pages.FoodItemListPage);
+        redraw(<FoodItemListPage />);
     },
     render: function() {
         return (
@@ -49,7 +49,7 @@ var CreateNewInfoProp = React.createClass({
 var EditInfoPropsPage = React.createClass({
     render: function() {
         var props = _props.map(function(p) {
-            return (<InfoProperty prop={p} key={p} />);
+            return (<InfoProperty name={p} key={p} />);
         })
         return (
             <div>
