@@ -26,8 +26,7 @@ var SettingsButton = React.createClass({
 
 var FoodItem = React.createClass({
     addfood: function () {
-        var day = _days.findById(CurrentDay);
-        day.food.push(this.props.food.id);
+        CurrentDay.food.push(this.props.food.id);
         if (this.props.refresh != null) this.props.refresh();
         return;
     },
@@ -43,7 +42,7 @@ var FoodItem = React.createClass({
                 null,
                 React.createElement(
                     "button",
-                    { onClick: this.addfood, disabled: this.props.readonly, className: "btn btn-success" },
+                    { onClick: this.addfood, disabled: CurrentDay == null || CurrentDay.archive, className: "btn btn-success" },
                     "+"
                 )
             ),
@@ -77,16 +76,15 @@ var FoodItemList = React.createClass({
     },
     render: function () {
         var foods = _foods.map((function (food) {
-            if (CurrentDay < 0) return React.createElement(FoodItem, { food: food, key: food.name, readonly: this.props.readonly });
+            if (CurrentDay == null) return React.createElement(FoodItem, { food: food, key: food.name });
 
-            var count = _days.findById(CurrentDay).food.filter(function (d) {
+            var count = CurrentDay.food.filter(function (d) {
                 return d == food.id;
             }).length;
-            return React.createElement(FoodItem, { count: count, refresh: this.refresh, food: food, key: food.name, readonly: this.props.readonly });
+            return React.createElement(FoodItem, { count: count, refresh: this.refresh, food: food, key: food.name });
         }).bind(this));
-        if (CurrentDay >= 0 && this.props.readonly) {
-            var day = _days.findById(CurrentDay);
-            for (var i = 0, j = 0; i < foods.length; i++, j++) if (day.food.indexOf(j) < 0) foods.splice(i--, 1);
+        if (CurrentDay != null && CurrentDay.archive) {
+            for (var i = 0, j = 0; i < foods.length; i++, j++) if (CurrentDay.food.indexOf(j) < 0) foods.splice(i--, 1);
         }
         return React.createElement(
             "tbody",
@@ -118,7 +116,7 @@ var FoodItemListPage = React.createClass({
             React.createElement(
                 ReactBootstrap.Table,
                 { hover: true, style: { width: "1%", whiteSpace: "nowrap" } },
-                React.createElement(FoodItemList, { readonly: this.props.readonly })
+                React.createElement(FoodItemList, null)
             )
         );
     }

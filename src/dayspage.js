@@ -1,4 +1,4 @@
-var CurrentDay = 0;
+var CurrentDay = _days[_days.length-1];
 
 var GetTotalCalories = function(dayId) {
     var day = _days.findById(dayId);
@@ -12,8 +12,8 @@ var GetTotalCalories = function(dayId) {
 
 var DayItem = React.createClass({
     viewfood: function() {
-        CurrentDay = this.props.id;
-        redraw(<FoodItemListPage readonly={true} />)
+        CurrentDay = _days.findById(this.props.id);
+        redraw(<FoodItemListPage />)
     },
     render: function() {
         var totalCalories = GetTotalCalories(this.props.id);
@@ -29,7 +29,7 @@ var DayItem = React.createClass({
 
 var DayToday = React.createClass({
     addfood: function() {
-        CurrentDay = this.props.id;
+        CurrentDay = _days.findById(this.props.id);
         redraw(<FoodItemListPage />);
     },
     render: function() {
@@ -45,15 +45,16 @@ var DayToday = React.createClass({
 
 var DaysPage = React.createClass({
     createday: function() {
-        _days.push({
+        CurrentDay["archive"] = true;
+        CurrentDay = _days.push({
             id: _days.generateId(),
             food: []
         });
         this.forceUpdate();
     },
     viewfood: function() {
-        CurrentDay = -1;
-        redraw(<FoodItemListPage readonly={true} />);
+        CurrentDay = null;
+        redraw(<FoodItemListPage />);
     },
     render: function() {
         var c = 1;
