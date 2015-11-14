@@ -1,52 +1,55 @@
-var _days = [
-    {
-        "id": 0,
-        "food": [0, 1, 2],
-        "total": [
-            {
-                "name": "calories",
-                "value": 123
-            }
-        ]
-    },
-    {
-        "id": 1,
-        "food": [0],
-        "total": []
-    },
-    {
-        "id": 2,
-        "food": [0, 3],
-        "total": [
-            {
-                "name": "calories",
-                "value": 5
-            }
-        ]
-    }
+var _propTypes = [
+    "text",
+    "number"
 ]
 
 var _props = [
-    "name",
-    "calories",
-    "protein",
-    "carbs",
-    "sugar"
+    // {
+    //     "name": "name",
+    //     "type": "text"
+    // }
+    "name"//,
+    // "calories",
+    // "protein",
+    // "carbs",
+    // "sugar"
+]
+
+var _days = [
+    {
+        "id": 0,
+        "food": [0, 1, 2]
+    },
+    {
+        "id": 1,
+        "food": [0]
+    },
+    {
+        "id": 2,
+        "food": [1, 3]
+    },
+    {
+        "id": 3,
+        "food": []
+    }
 ]
 
 var _foods = [
 {
-    "name": "Mashed Potatoes",
-    "calories": "123"
+    "id": 0,
+    "name": "Mashed Potatoes"
 },
 {
-    "name": "Chicken Breast",
+    "id": 1,
+    "name": "Chicken Breast"
 },
 {
-    "name": "Vegetables",
+    "id": 2,
+    "name": "Vegetables"
 },
 {
-    "name": "Spaghetti",
+    "id": 3,
+    "name": "Spaghetti"
 }
 ]
 

@@ -25,16 +25,21 @@ var SettingsButton = React.createClass({
 });
 
 var FoodItem = React.createClass({
+    addfood: function () {
+        var day = _days.findById(CurrentDay);
+        day.food.push(this.props.food.id);
+        return;
+    },
     editfood: function (e) {
         redraw(React.createElement(CreateFoodPage, { food: this.props.food }));
     },
     render: function () {
         return React.createElement(
             "div",
-            { className: "card" },
+            null,
             React.createElement(
                 "button",
-                { className: "btn btn-success" },
+                { onClick: this.addfood, className: "btn btn-success" },
                 "+"
             ),
             this.props.food.name,
@@ -48,11 +53,10 @@ var FoodItem = React.createClass({
 });
 
 var FoodItemList = React.createClass({
-
     render: function () {
-        var foods = this.props.foods.map(function (food) {
+        var foods = _foods.map((function (food) {
             return React.createElement(FoodItem, { food: food, key: food.name });
-        });
+        }).bind(this));
         return React.createElement(
             "div",
             null,
@@ -62,6 +66,9 @@ var FoodItemList = React.createClass({
 });
 
 var FoodItemListPage = React.createClass({
+    back: function () {
+        redraw(React.createElement(DaysPage, null));
+    },
     render: function () {
         return React.createElement(
             "div",
@@ -69,10 +76,15 @@ var FoodItemListPage = React.createClass({
             React.createElement(
                 "div",
                 { className: "btn-group" },
+                React.createElement(
+                    "button",
+                    { onClick: this.back, className: "btn btn-default" },
+                    "Back"
+                ),
                 React.createElement(CreateFoodButton, null),
                 React.createElement(SettingsButton, null)
             ),
-            React.createElement(FoodItemList, { foods: _foods })
+            React.createElement(FoodItemList, null)
         );
     }
 });

@@ -9,7 +9,7 @@ var EditableInfoProperty = React.createClass({
                 this.props.name
             ),
             React.createElement("input", { className: "form-control", id: this.props.name, type: "text", onChange: this.props.onchange, ref: "{this.props.name}",
-                value: this.props.value })
+                defaultValue: this.props.value })
         );
     }
 });
@@ -18,22 +18,27 @@ var CreateFoodPage = React.createClass({
     handleClick: function (event) {
         event.preventDefault();
         var duplicates = false;
-        for (var i = 0; i < _foods.length; i++) if (_foods[i].name == this.state.name) {
-            console.error("Cannot insert duplicate names.");
-            return;
+        var foundFood = this.props.food != null ? _foods.findById(this.props.food.id) : null;
+        if (foundFood == null) {
+            _foods.push(this.state);
+        } else {
+            _foods[_foods.indexOf(foundFood)] = this.state;
         }
-        _foods.push(this.state);
         redraw(React.createElement(FoodItemListPage, null));
     },
     getInitialState: function () {
-        return {
-            name: ''
+        console.log(this.props.food);
+        return this.props.food || {
+            name: this.props.food != null ? this.props.food.name : null,
+            id: this.props.food != null ? this.props.food.id : _foods.generateId()
         };
     },
     handleChange: function (e) {
-        var state = {};
-        state[e.target.id] = e.target.value;
+        var state = this.state;
+        var value = e.target.value;
+        state[e.target.id] = e.target.id == 'name' ? value : parseInt(value);
         this.setState(state);
+        console.log(this.state.name);
     },
     back: function () {
         redraw(React.createElement(FoodItemListPage, null));
@@ -43,9 +48,7 @@ var CreateFoodPage = React.createClass({
     },
     render: function () {
         var props = _props.map((function (p) {
-            if (this.props.food != null) return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p, value: this.props.food[p] });else {
-                return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p });
-            }
+            return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p, value: this.state[p] });
         }).bind(this));
         return React.createElement(
             "div",

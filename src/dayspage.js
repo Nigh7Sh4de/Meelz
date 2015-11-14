@@ -1,13 +1,21 @@
+var CurrentDay = 0;
+
+var GetTotalCalories = function(dayId) {
+    var day = _days.findById(dayId);
+    var calories = 0;
+    day.food.forEach(function (foodId) {
+        var food = _foods.findById(foodId);
+        calories += food.calories || 0;
+    });
+    return calories;
+}
+
 var DayItem = React.createClass({
     viewfood: function() {
         console.log(this.props.id);
     },
     render: function() {
-        var totalCalories = 0;
-        this.props.total.forEach(function (t) {
-            if (t.name == 'calories')
-                totalCalories = t.value;
-        });
+        var totalCalories = GetTotalCalories(this.props.id);
         return (
             <div key={this.props.id}>
                 <button onClick={this.viewfood} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></button>
@@ -20,14 +28,12 @@ var DayItem = React.createClass({
 
 var DayToday = React.createClass({
     addfood: function() {
-        console.log(this.props.id);
+        CurrentDay = this.props.id;
+        redraw(<FoodItemListPage />);
     },
     render: function() {
-        var totalCalories = 0;
-        this.props.total.forEach(function (t) {
-            if (t.name == 'calories')
-                totalCalories = t.value;
-        });
+        var totalCalories = GetTotalCalories(this.props.id);
+        // var totalCalories = _days.findById(this.props.id).food.length;
         return (
             <div key={this.props.id}>
                 <button onClick={this.addfood} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></button>
@@ -42,14 +48,14 @@ var DaysPage = React.createClass({
         console.log(e.target.day);
     },
     render: function() {
-        var c = 0;
-        var days = _days.reverse().map(function(d) {
-            if (c++ > 0)
+        var c = 1;
+        var days = _days.map(function(d) {
+            if (c++ < _days.length)
                 return <DayItem total={d.total} id={d.id} key={d.id} />
             else {
                 return <DayToday total={d.total} id={d.id} key={d.id} />
             }
-        }.bind(this));
+        }.bind(this)).reverse();
 
         return (
             <div>

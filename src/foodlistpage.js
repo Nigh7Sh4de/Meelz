@@ -23,13 +23,18 @@ var SettingsButton = React.createClass({
 })
 
 var FoodItem = React.createClass({
+    addfood: function() {
+        var day = _days.findById(CurrentDay);
+        day.food.push(this.props.food.id);
+        return;
+    },
     editfood: function(e) {
         redraw(<CreateFoodPage food={this.props.food} />);
     },
     render: function () {
         return (
-            <div className="card">
-                <button className="btn btn-success">+</button>
+            <div>
+                <button onClick={this.addfood} className="btn btn-success">+</button>
                 {this.props.food.name}
                 <button onClick={this.editfood} className="btn btn-default">
                     <span className="glyphicon glyphicon-cog"></span>
@@ -40,11 +45,10 @@ var FoodItem = React.createClass({
 })
 
 var FoodItemList = React.createClass({
-
     render: function() {
-        var foods = this.props.foods.map(function(food) {
+        var foods = _foods.map(function(food) {
             return <FoodItem food={food} key={food.name} />
-        });
+        }.bind(this));
         return (
             <div>{foods}</div>
         );
@@ -52,13 +56,17 @@ var FoodItemList = React.createClass({
 })
 
 var FoodItemListPage = React.createClass({
+    back: function() {
+        redraw(<DaysPage />)
+    },
     render: function() {
         return (
             <div>
                 <div className="btn-group">
+                    <button onClick={this.back} className="btn btn-default">Back</button>
                     <CreateFoodButton /><SettingsButton />
                 </div>
-                <FoodItemList foods={_foods} />
+                <FoodItemList />
             </div>
         );
     }
