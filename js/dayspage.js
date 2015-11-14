@@ -18,17 +18,29 @@ var DayItem = React.createClass({
     render: function () {
         var totalCalories = GetTotalCalories(this.props.id);
         return React.createElement(
-            "div",
+            "tr",
             { key: this.props.id },
             React.createElement(
-                "button",
-                { onClick: this.viewfood, className: "btn btn-default" },
-                React.createElement("span", { className: "glyphicon glyphicon-tasks" })
+                "td",
+                null,
+                React.createElement(
+                    "button",
+                    { onClick: this.viewfood, className: "btn btn-default" },
+                    React.createElement("span", { className: "glyphicon glyphicon-tasks" })
+                )
             ),
-            "Day #",
-            this.props.id,
-            ". Total calories: ",
-            totalCalories
+            React.createElement(
+                "td",
+                null,
+                "Day #",
+                this.props.id
+            ),
+            React.createElement(
+                "td",
+                null,
+                "Total calories: ",
+                totalCalories
+            )
         );
     }
 });
@@ -41,17 +53,29 @@ var DayToday = React.createClass({
     render: function () {
         var totalCalories = GetTotalCalories(this.props.id);
         return React.createElement(
-            "div",
+            "tr",
             { key: this.props.id },
             React.createElement(
-                "button",
-                { onClick: this.addfood, className: "btn btn-success" },
-                React.createElement("span", { className: "glyphicon glyphicon-plus" })
+                "td",
+                null,
+                React.createElement(
+                    "button",
+                    { onClick: this.addfood, className: "btn btn-success" },
+                    React.createElement("span", { className: "glyphicon glyphicon-plus" })
+                )
             ),
-            "Day #",
-            this.props.id,
-            ". Total calories: ",
-            totalCalories
+            React.createElement(
+                "td",
+                null,
+                "Day #",
+                this.props.id
+            ),
+            React.createElement(
+                "td",
+                null,
+                "Total calories: ",
+                totalCalories
+            )
         );
     }
 });
@@ -95,7 +119,15 @@ var DaysPage = React.createClass({
                     "View Food"
                 )
             ),
-            days
+            React.createElement(
+                ReactBootstrap.Table,
+                { responsive: true, hover: true, style: { width: "1%", whiteSpace: "nowrap" } },
+                React.createElement(
+                    "tbody",
+                    null,
+                    days
+                )
+            )
         );
     }
 });

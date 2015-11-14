@@ -18,10 +18,17 @@ var DayItem = React.createClass({
     render: function() {
         var totalCalories = GetTotalCalories(this.props.id);
         return (
-            <div key={this.props.id}>
-                <button onClick={this.viewfood} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></button>
-                Day #{this.props.id}. Total calories: {totalCalories}
-            </div>
+            <tr key={this.props.id}>
+                <td>
+                    <button onClick={this.viewfood} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></button>
+                </td>
+                <td>
+                    Day #{this.props.id}
+                </td>
+                <td>
+                    Total calories: {totalCalories}
+                </td>
+            </tr>
         );
     }
 })
@@ -35,10 +42,17 @@ var DayToday = React.createClass({
     render: function() {
         var totalCalories = GetTotalCalories(this.props.id);
         return (
-            <div key={this.props.id}>
-                <button onClick={this.addfood} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></button>
-                Day #{this.props.id}. Total calories: {totalCalories}
-            </div>
+            <tr key={this.props.id}>
+                <td>
+                    <button onClick={this.addfood} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></button>
+                </td>
+                <td>
+                    Day #{this.props.id}
+                </td>
+                <td>
+                    Total calories: {totalCalories}
+                </td>
+            </tr>
         );
     }
 });
@@ -72,7 +86,11 @@ var DaysPage = React.createClass({
                     <button onClick={this.createday} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span> Day</button>
                     <button onClick={this.viewfood} className="btn btn-default">View Food</button>
                 </div>
-                {days}
+                <ReactBootstrap.Table responsive hover style={{width:"1%", whiteSpace:"nowrap"}}>
+                    <tbody>
+                        {days}
+                    </tbody>
+                </ReactBootstrap.Table>
             </div>
         );
     }
