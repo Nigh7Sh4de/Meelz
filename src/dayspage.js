@@ -12,7 +12,8 @@ var GetTotalCalories = function(dayId) {
 
 var DayItem = React.createClass({
     viewfood: function() {
-        console.log(this.props.id);
+        CurrentDay = this.props.id;
+        redraw(<FoodItemListPage readonly={true} />)
     },
     render: function() {
         var totalCalories = GetTotalCalories(this.props.id);
@@ -33,7 +34,6 @@ var DayToday = React.createClass({
     },
     render: function() {
         var totalCalories = GetTotalCalories(this.props.id);
-        // var totalCalories = _days.findById(this.props.id).food.length;
         return (
             <div key={this.props.id}>
                 <button onClick={this.addfood} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></button>
@@ -50,9 +50,6 @@ var DaysPage = React.createClass({
             food: []
         });
         this.forceUpdate();
-    },
-    addfood: function(e) {
-        console.log(e.target.day);
     },
     render: function() {
         var c = 1;

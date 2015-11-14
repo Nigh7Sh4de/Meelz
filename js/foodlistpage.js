@@ -39,7 +39,7 @@ var FoodItem = React.createClass({
             null,
             React.createElement(
                 "button",
-                { onClick: this.addfood, className: "btn btn-success" },
+                { onClick: this.addfood, disabled: this.props.readonly, className: "btn btn-success" },
                 "+"
             ),
             this.props.food.name,
@@ -55,7 +55,7 @@ var FoodItem = React.createClass({
 var FoodItemList = React.createClass({
     render: function () {
         var foods = _foods.map((function (food) {
-            return React.createElement(FoodItem, { food: food, key: food.name });
+            return React.createElement(FoodItem, { food: food, key: food.name, readonly: this.props.readonly });
         }).bind(this));
         return React.createElement(
             "div",
@@ -84,7 +84,7 @@ var FoodItemListPage = React.createClass({
                 React.createElement(CreateFoodButton, null),
                 React.createElement(SettingsButton, null)
             ),
-            React.createElement(FoodItemList, null)
+            React.createElement(FoodItemList, { readonly: this.props.readonly })
         );
     }
 });

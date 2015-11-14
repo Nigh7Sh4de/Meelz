@@ -34,7 +34,7 @@ var FoodItem = React.createClass({
     render: function () {
         return (
             <div>
-                <button onClick={this.addfood} className="btn btn-success">+</button>
+                <button onClick={this.addfood} disabled={this.props.readonly} className="btn btn-success">+</button>
                 {this.props.food.name}
                 <button onClick={this.editfood} className="btn btn-default">
                     <span className="glyphicon glyphicon-cog"></span>
@@ -47,7 +47,7 @@ var FoodItem = React.createClass({
 var FoodItemList = React.createClass({
     render: function() {
         var foods = _foods.map(function(food) {
-            return <FoodItem food={food} key={food.name} />
+            return <FoodItem food={food} key={food.name} readonly={this.props.readonly}/>
         }.bind(this));
         return (
             <div>{foods}</div>
@@ -66,7 +66,7 @@ var FoodItemListPage = React.createClass({
                     <button onClick={this.back} className="btn btn-default">Back</button>
                     <CreateFoodButton /><SettingsButton />
                 </div>
-                <FoodItemList />
+                <FoodItemList readonly={this.props.readonly}/>
             </div>
         );
     }
