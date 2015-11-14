@@ -35,14 +35,20 @@ var FoodItem = React.createClass({
     },
     render: function () {
         return (
-            <div>
-                <button onClick={this.addfood} disabled={this.props.readonly} className="btn btn-success">+</button>
-                <span className="badge">{this.props.count}</span>
-                {this.props.food.name}
-                <button onClick={this.editfood} className="btn btn-default">
-                    <span className="glyphicon glyphicon-cog"></span>
-                </button>
-            </div>
+            <tr>
+                <td>
+                    <button onClick={this.addfood} disabled={this.props.readonly} className="btn btn-success">+</button>
+                </td>
+                <td style={{verticalAlign:"middle"}}>
+                    <span className="badge">{this.props.count}</span>&nbsp;
+                    {this.props.food.name}
+                </td>
+                <td>
+                    <button onClick={this.editfood} className="btn btn-default">
+                        <span className="glyphicon glyphicon-cog"></span>
+                    </button>
+                </td>
+            </tr>
         );
     }
 })
@@ -68,7 +74,9 @@ var FoodItemList = React.createClass({
                     foods.splice(i--, 1);
         }
         return (
-            <div>{foods}</div>
+                <tbody>
+                    {foods}
+                </tbody>
         );
     }
 })
@@ -80,11 +88,13 @@ var FoodItemListPage = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="btn-group">
+                <div className="btn-group" style={{display: "flex"}}>
                     <button onClick={this.back} className="btn btn-default">Back</button>
                     <CreateFoodButton /><SettingsButton />
                 </div>
-                <FoodItemList readonly={this.props.readonly} />
+                <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
+                    <FoodItemList readonly={this.props.readonly} />
+                </ReactBootstrap.Table>
             </div>
         );
     }

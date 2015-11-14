@@ -36,23 +36,36 @@ var FoodItem = React.createClass({
     },
     render: function () {
         return React.createElement(
-            "div",
+            "tr",
             null,
             React.createElement(
-                "button",
-                { onClick: this.addfood, disabled: this.props.readonly, className: "btn btn-success" },
-                "+"
+                "td",
+                null,
+                React.createElement(
+                    "button",
+                    { onClick: this.addfood, disabled: this.props.readonly, className: "btn btn-success" },
+                    "+"
+                )
             ),
             React.createElement(
-                "span",
-                { className: "badge" },
-                this.props.count
+                "td",
+                { style: { verticalAlign: "middle" } },
+                React.createElement(
+                    "span",
+                    { className: "badge" },
+                    this.props.count
+                ),
+                " ",
+                this.props.food.name
             ),
-            this.props.food.name,
             React.createElement(
-                "button",
-                { onClick: this.editfood, className: "btn btn-default" },
-                React.createElement("span", { className: "glyphicon glyphicon-cog" })
+                "td",
+                null,
+                React.createElement(
+                    "button",
+                    { onClick: this.editfood, className: "btn btn-default" },
+                    React.createElement("span", { className: "glyphicon glyphicon-cog" })
+                )
             )
         );
     }
@@ -76,7 +89,7 @@ var FoodItemList = React.createClass({
             for (var i = 0, j = 0; i < foods.length; i++, j++) if (day.food.indexOf(j) < 0) foods.splice(i--, 1);
         }
         return React.createElement(
-            "div",
+            "tbody",
             null,
             foods
         );
@@ -93,7 +106,7 @@ var FoodItemListPage = React.createClass({
             null,
             React.createElement(
                 "div",
-                { className: "btn-group" },
+                { className: "btn-group", style: { display: "flex" } },
                 React.createElement(
                     "button",
                     { onClick: this.back, className: "btn btn-default" },
@@ -102,7 +115,11 @@ var FoodItemListPage = React.createClass({
                 React.createElement(CreateFoodButton, null),
                 React.createElement(SettingsButton, null)
             ),
-            React.createElement(FoodItemList, { readonly: this.props.readonly })
+            React.createElement(
+                ReactBootstrap.Table,
+                { hover: true, style: { width: "1%", whiteSpace: "nowrap" } },
+                React.createElement(FoodItemList, { readonly: this.props.readonly })
+            )
         );
     }
 });
