@@ -57,6 +57,13 @@ var FoodItemList = React.createClass({
         var foods = _foods.map((function (food) {
             return React.createElement(FoodItem, { food: food, key: food.name, readonly: this.props.readonly });
         }).bind(this));
+        if (CurrentDay >= 0 && this.props.readonly) {
+            var day = _days.findById(CurrentDay);
+            for (var i = 0, j = 0; i < foods.length; i++, j++) if (day.food.indexOf(j) < 0) foods.splice(i--, 1);
+            // foods.forEach(function (e, i) {
+
+            // });
+        }
         return React.createElement(
             "div",
             null,

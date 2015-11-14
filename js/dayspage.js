@@ -64,6 +64,10 @@ var DaysPage = React.createClass({
         });
         this.forceUpdate();
     },
+    viewfood: function () {
+        CurrentDay = -1;
+        redraw(React.createElement(FoodItemListPage, { readonly: true }));
+    },
     render: function () {
         var c = 1;
         var days = _days.map((function (d) {
@@ -76,10 +80,19 @@ var DaysPage = React.createClass({
             "div",
             null,
             React.createElement(
-                "button",
-                { onClick: this.createday, className: "btn btn-success" },
-                React.createElement("span", { className: "glyphicon glyphicon-plus" }),
-                "Day"
+                "div",
+                { className: "btn-group" },
+                React.createElement(
+                    "button",
+                    { onClick: this.createday, className: "btn btn-success" },
+                    React.createElement("span", { className: "glyphicon glyphicon-plus" }),
+                    " Day"
+                ),
+                React.createElement(
+                    "button",
+                    { onClick: this.viewfood, className: "btn btn-default" },
+                    "View Food"
+                )
             ),
             days
         );

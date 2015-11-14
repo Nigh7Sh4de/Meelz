@@ -49,6 +49,15 @@ var FoodItemList = React.createClass({
         var foods = _foods.map(function(food) {
             return <FoodItem food={food} key={food.name} readonly={this.props.readonly}/>
         }.bind(this));
+        if (CurrentDay >= 0 && this.props.readonly) {
+            var day = _days.findById(CurrentDay);
+            for (var i=0,j=0;i<foods.length;i++,j++)
+                if (day.food.indexOf(j) < 0)
+                    foods.splice(i--, 1);
+            // foods.forEach(function (e, i) {
+
+            // });
+        }
         return (
             <div>{foods}</div>
         );
@@ -66,7 +75,7 @@ var FoodItemListPage = React.createClass({
                     <button onClick={this.back} className="btn btn-default">Back</button>
                     <CreateFoodButton /><SettingsButton />
                 </div>
-                <FoodItemList readonly={this.props.readonly}/>
+                <FoodItemList readonly={this.props.readonly} />
             </div>
         );
     }
