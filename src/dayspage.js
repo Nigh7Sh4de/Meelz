@@ -44,6 +44,13 @@ var DayToday = React.createClass({
 });
 
 var DaysPage = React.createClass({
+    createday: function() {
+        _days.push({
+            id: _days.generateId(),
+            food: []
+        });
+        this.forceUpdate();
+    },
     addfood: function(e) {
         console.log(e.target.day);
     },
@@ -59,6 +66,7 @@ var DaysPage = React.createClass({
 
         return (
             <div>
+                <button onClick={this.createday} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span>Day</button>
                 {days}
             </div>
         );
