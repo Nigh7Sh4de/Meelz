@@ -1,9 +1,9 @@
 var InfoProperty = React.createClass({
     render: function() {
         return (
-            <div>
+            <li className="list-group-item">
                 {this.props.name}
-            </div>
+            </li>
         )
     }
 })
@@ -54,7 +54,9 @@ var EditInfoPropsPage = React.createClass({
         return (
             <div>
                 <CreateNewInfoProp list={this} />
-                {props}
+                <ul className="list-group">
+                    {props}
+                </ul>
             </div>
         )
     }

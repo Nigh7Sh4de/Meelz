@@ -5,7 +5,7 @@ var EditableInfoProperty = React.createClass({
             { className: "input-group" },
             React.createElement(
                 "span",
-                { className: "input-group-addon" },
+                { className: "input-group-addon col-sm-12" },
                 this.props.name
             ),
             React.createElement("input", { className: "form-control", id: this.props.name, type: "text", onChange: this.props.onchange, ref: "{this.props.name}",

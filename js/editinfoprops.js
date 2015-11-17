@@ -1,8 +1,8 @@
 var InfoProperty = React.createClass({
     render: function () {
         return React.createElement(
-            'div',
-            null,
+            "li",
+            { className: "list-group-item" },
             this.props.name
         );
     }
@@ -30,28 +30,28 @@ var CreateNewInfoProp = React.createClass({
     },
     render: function () {
         return React.createElement(
-            'div',
-            { className: 'form-group {hasError}' },
+            "div",
+            { className: "form-group {hasError}" },
             React.createElement(
-                'div',
-                { className: 'input-group' },
+                "div",
+                { className: "input-group" },
                 React.createElement(
-                    'span',
-                    { className: 'input-group-btn' },
+                    "span",
+                    { className: "input-group-btn" },
                     React.createElement(
-                        'button',
-                        { onClick: this.back, className: 'btn btn-default' },
-                        'Back'
+                        "button",
+                        { onClick: this.back, className: "btn btn-default" },
+                        "Back"
                     )
                 ),
-                React.createElement('input', { onKeyPress: this.handleKeyPress, ref: 'name', placeholder: 'name', className: 'form-control', type: 'text' }),
+                React.createElement("input", { onKeyPress: this.handleKeyPress, ref: "name", placeholder: "name", className: "form-control", type: "text" }),
                 React.createElement(
-                    'span',
-                    { className: 'input-group-btn' },
+                    "span",
+                    { className: "input-group-btn" },
                     React.createElement(
-                        'button',
-                        { onClick: this.submit, className: 'btn btn-default' },
-                        '+ Add'
+                        "button",
+                        { onClick: this.submit, className: "btn btn-default" },
+                        "+ Add"
                     )
                 )
             )
@@ -65,10 +65,14 @@ var EditInfoPropsPage = React.createClass({
             return React.createElement(InfoProperty, { name: p, key: p });
         });
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(CreateNewInfoProp, { list: this }),
-            props
+            React.createElement(
+                "ul",
+                { className: "list-group" },
+                props
+            )
         );
     }
 });
