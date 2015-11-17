@@ -23,7 +23,7 @@ var DayItem = React.createClass({
                     <button onClick={this.viewfood} className="btn btn-default"><span className="glyphicon glyphicon-tasks"></span></button>
                 </td>
                 <td>
-                    Day #{this.props.id}
+                    {this.props.date}
                 </td>
                 <td>
                     Total calories: {totalCalories}
@@ -47,7 +47,7 @@ var DayToday = React.createClass({
                     <button onClick={this.addfood} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span></button>
                 </td>
                 <td>
-                    Day #{this.props.id}
+                    {this.props.date}
                 </td>
                 <td>
                     Total calories: {totalCalories}
@@ -58,32 +58,47 @@ var DayToday = React.createClass({
 });
 
 var DaysPage = React.createClass({
-    createday: function() {
+    createday: function(e) {
+        if (e.target.id != "override" && CurrentDay.date == new Date().toDateString()) {
+            this.open();
+            return;
+        }
         CurrentDay["archive"] = true;
         CurrentDay = _days.push({
             id: _days.generateId(),
-            food: []
+            food: [],
+            date: new Date().toDateString()
         });
-        this.forceUpdate();
+        this.close();
     },
     viewfood: function() {
         CurrentDay = null;
         redraw(<FoodItemListPage />);
     },
+    open: function() {
+        this.setState({showModal: true});
+    },
+    close: function() {
+        this.setState({showModal: false});
+    },
+    getInitialState: function() {
+        return ({showModal: false});
+    },
     render: function() {
+        CurrentDay = _days[_days.length-1];
         var c = 1;
         var days = _days.map(function(d) {
             if (c++ < _days.length)
-                return <DayItem total={d.total} id={d.id} key={d.id} />
+                return <DayItem date={d.date} total={d.total} id={d.id} key={d.id} />
             else {
-                return <DayToday total={d.total} id={d.id} key={d.id} />
+                return <DayToday date={d.date} total={d.total} id={d.id} key={d.id} />
             }
         }.bind(this)).reverse();
 
         return (
             <div>
                 <div className="btn-group">
-                    <button onClick={this.createday} className="btn btn-success"><span className="glyphicon glyphicon-plus"></span> Day</button>
+                    <button onClick={this.createday} id="create" className="btn btn-success"><span className="glyphicon glyphicon-plus"></span> Day</button>
                     <button onClick={this.viewfood} className="btn btn-default">View Food</button>
                 </div>
                 <ReactBootstrap.Table responsive hover style={{width:"1%", whiteSpace:"nowrap"}}>
@@ -91,6 +106,17 @@ var DaysPage = React.createClass({
                         {days}
                     </tbody>
                 </ReactBootstrap.Table>
+
+                <ReactBootstrap.Modal show={this.state.showModal} onHide={this.close}>
+                    <ReactBootstrap.Modal.Body>
+                        <h4>Confirm new day</h4>
+                        <p>You already made a new day today. Are you sure you want to generate a new day with today&#39;s date?</p>
+                    </ReactBootstrap.Modal.Body>
+                    <ReactBootstrap.Modal.Footer>
+                        <button className="btn btn-warning" id="override" onClick={this.createday}>Confirm</button>
+                        <button className="btn btn-default" onClick={this.close}>Close</button>
+                    </ReactBootstrap.Modal.Footer>
+                </ReactBootstrap.Modal>
             </div>
         );
     }
