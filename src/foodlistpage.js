@@ -9,18 +9,18 @@ var CreateFoodButton = React.createClass({
     }
 })
 
-var SettingsButton = React.createClass({
-    handleClick: function(e) {
-        redraw(<EditInfoPropsPage />);
-    },
-    render: function() {
-        return (
-            <button className="btn btn-default" onClick={this.handleClick}>
-                <span className="glyphicon glyphicon-cog"></span>
-            </button>
-        )
-    }
-})
+// var SettingsButton = React.createClass({
+//     handleClick: function(e) {
+//         redraw(<EditInfoPropsPage />);
+//     },
+//     render: function() {
+//         return (
+//             <button className="btn btn-default" onClick={this.handleClick}>
+//                 <span className="glyphicon glyphicon-cog"></span>
+//             </button>
+//         )
+//     }
+// })
 
 var FoodItem = React.createClass({
     addfood: function() {
@@ -88,7 +88,6 @@ var FoodItemListPage = React.createClass({
             <div>
                 <div className="btn-group" style={{display: "flex"}}>
                     <button onClick={this.back} className="btn btn-default">Back</button>
-                    <CreateFoodButton /><SettingsButton />
                 </div>
                 <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
                     <FoodItemList />

@@ -1,13 +1,13 @@
 var CurrentDay = _days[_days.length - 1];
 
-var GetTotalCalories = function (dayId) {
+var GetTotal = function (prop, dayId) {
     var day = _days.findById(dayId);
-    var calories = 0;
+    var total = 0;
     day.food.forEach(function (foodId) {
         var food = _foods.findById(foodId);
-        calories += food.calories || 0;
+        total += food[prop] || 0;
     });
-    return calories;
+    return total;
 };
 
 var DayItem = React.createClass({
@@ -16,7 +16,14 @@ var DayItem = React.createClass({
         redraw(React.createElement(FoodItemListPage, null));
     },
     render: function () {
-        var totalCalories = GetTotalCalories(this.props.id);
+        var totals = _settings.home_cols.map((function (c) {
+            var t = GetTotal(c, this.props.id);
+            return React.createElement(
+                "td",
+                { key: c },
+                t
+            );
+        }).bind(this));
         return React.createElement(
             "tr",
             { key: this.props.id },
@@ -34,12 +41,7 @@ var DayItem = React.createClass({
                 null,
                 this.props.date
             ),
-            React.createElement(
-                "td",
-                null,
-                "Total calories: ",
-                totalCalories
-            )
+            totals
         );
     }
 });
@@ -50,7 +52,14 @@ var DayToday = React.createClass({
         redraw(React.createElement(FoodItemListPage, null));
     },
     render: function () {
-        var totalCalories = GetTotalCalories(this.props.id);
+        var totals = _settings.home_cols.map((function (c) {
+            var t = GetTotal(c, this.props.id);
+            return React.createElement(
+                "td",
+                { key: c },
+                t
+            );
+        }).bind(this));
         return React.createElement(
             "tr",
             { key: this.props.id },
@@ -68,12 +77,7 @@ var DayToday = React.createClass({
                 null,
                 this.props.date
             ),
-            React.createElement(
-                "td",
-                null,
-                "Total calories: ",
-                totalCalories
-            )
+            totals
         );
     }
 });
@@ -91,6 +95,9 @@ var DaysPage = React.createClass({
             date: new Date().toDateString()
         });
         this.close();
+    },
+    showsettings: function (e) {
+        redraw(React.createElement(EditInfoPropsPage, null));
     },
     viewfood: function () {
         CurrentDay = null;
@@ -114,6 +121,14 @@ var DaysPage = React.createClass({
             }
         }).bind(this)).reverse();
 
+        var home_cols = _settings.home_cols.map(function (c) {
+            return React.createElement(
+                "th",
+                { key: c },
+                c
+            );
+        });
+
         return React.createElement(
             "div",
             null,
@@ -130,11 +145,31 @@ var DaysPage = React.createClass({
                     "button",
                     { onClick: this.viewfood, className: "btn btn-default" },
                     "View Food"
+                ),
+                React.createElement(
+                    "button",
+                    { onClick: this.showsettings, className: "btn btn-default" },
+                    React.createElement("span", { className: "glyphicon glyphicon-cog" })
                 )
             ),
             React.createElement(
                 ReactBootstrap.Table,
                 { responsive: true, hover: true, style: { width: "1%", whiteSpace: "nowrap" } },
+                React.createElement(
+                    "thead",
+                    null,
+                    React.createElement(
+                        "tr",
+                        null,
+                        React.createElement("th", null),
+                        React.createElement(
+                            "th",
+                            null,
+                            "Date"
+                        ),
+                        home_cols
+                    )
+                ),
                 React.createElement(
                     "tbody",
                     null,

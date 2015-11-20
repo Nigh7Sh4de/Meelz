@@ -1,13 +1,13 @@
 var CurrentDay = _days[_days.length-1];
 
-var GetTotalCalories = function(dayId) {
+var GetTotal = function(prop, dayId) {
     var day = _days.findById(dayId);
-    var calories = 0;
+    var total = 0;
     day.food.forEach(function (foodId) {
         var food = _foods.findById(foodId);
-        calories += food.calories || 0;
+        total += food[prop] || 0;
     });
-    return calories;
+    return total;
 }
 
 var DayItem = React.createClass({
@@ -16,7 +16,10 @@ var DayItem = React.createClass({
         redraw(<FoodItemListPage />)
     },
     render: function() {
-        var totalCalories = GetTotalCalories(this.props.id);
+        var totals = _settings.home_cols.map(function(c) {
+            var t =  GetTotal(c, this.props.id);
+            return (<td key={c}>{t}</td>);
+        }.bind(this));
         return (
             <tr key={this.props.id}>
                 <td>
@@ -25,9 +28,7 @@ var DayItem = React.createClass({
                 <td>
                     {this.props.date}
                 </td>
-                <td>
-                    Total calories: {totalCalories}
-                </td>
+                {totals}
             </tr>
         );
     }
@@ -40,7 +41,10 @@ var DayToday = React.createClass({
         redraw(<FoodItemListPage />);
     },
     render: function() {
-        var totalCalories = GetTotalCalories(this.props.id);
+        var totals = _settings.home_cols.map(function(c) {
+            var t =  GetTotal(c, this.props.id);
+            return (<td key={c}>{t}</td>);
+        }.bind(this));
         return (
             <tr key={this.props.id}>
                 <td>
@@ -49,9 +53,7 @@ var DayToday = React.createClass({
                 <td>
                     {this.props.date}
                 </td>
-                <td>
-                    Total calories: {totalCalories}
-                </td>
+                {totals}
             </tr>
         );
     }
@@ -70,6 +72,10 @@ var DaysPage = React.createClass({
             date: new Date().toDateString()
         });
         this.close();
+    },
+    showsettings: function(e) {
+        redraw(<EditInfoPropsPage />);
+
     },
     viewfood: function() {
         CurrentDay = null;
@@ -95,13 +101,25 @@ var DaysPage = React.createClass({
             }
         }.bind(this)).reverse();
 
+        var home_cols = _settings.home_cols.map(function(c) {
+            return (<th key={c}>{c}</th>);
+        });
+
         return (
             <div>
                 <div className="btn-group">
                     <button onClick={this.createday} id="create" className="btn btn-success"><span className="glyphicon glyphicon-plus"></span> Day</button>
                     <button onClick={this.viewfood} className="btn btn-default">View Food</button>
+                    <button onClick={this.showsettings} className="btn btn-default"><span className="glyphicon glyphicon-cog"></span></button>
                 </div>
                 <ReactBootstrap.Table responsive hover style={{width:"1%", whiteSpace:"nowrap"}}>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            {home_cols}
+                        </tr>
+                    </thead>
                     <tbody>
                         {days}
                     </tbody>

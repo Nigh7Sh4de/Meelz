@@ -11,18 +11,18 @@ var CreateFoodButton = React.createClass({
     }
 });
 
-var SettingsButton = React.createClass({
-    handleClick: function (e) {
-        redraw(React.createElement(EditInfoPropsPage, null));
-    },
-    render: function () {
-        return React.createElement(
-            "button",
-            { className: "btn btn-default", onClick: this.handleClick },
-            React.createElement("span", { className: "glyphicon glyphicon-cog" })
-        );
-    }
-});
+// var SettingsButton = React.createClass({
+//     handleClick: function(e) {
+//         redraw(<EditInfoPropsPage />);
+//     },
+//     render: function() {
+//         return (
+//             <button className="btn btn-default" onClick={this.handleClick}>
+//                 <span className="glyphicon glyphicon-cog"></span>
+//             </button>
+//         )
+//     }
+// })
 
 var FoodItem = React.createClass({
     addfood: function () {
@@ -109,9 +109,7 @@ var FoodItemListPage = React.createClass({
                     "button",
                     { onClick: this.back, className: "btn btn-default" },
                     "Back"
-                ),
-                React.createElement(CreateFoodButton, null),
-                React.createElement(SettingsButton, null)
+                )
             ),
             React.createElement(
                 ReactBootstrap.Table,

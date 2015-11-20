@@ -1,21 +1,21 @@
-var _settings = [{
-    "name": "props",
-    "value": ["calories"]
-}];
+var _settings = {
+    "home_cols": ["calories"],
+    "props": ["name"]
+};
 
 var _propTypes = ["text", "number"];
 
-var _props = [
-// {
-//     "name": "name",
-//     "type": "text"
-// }
-"name" //,
-// "calories",
-// "protein",
-// "carbs",
-// "sugar"
-];
+// var _props = [
+//     // {
+//     //     "name": "name",
+//     //     "type": "text"
+//     // }
+//     "name"//,
+//     // "calories",
+//     // "protein",
+//     // "carbs",
+//     // "sugar"
+// ]
 
 var _days = [{
     "id": 0,

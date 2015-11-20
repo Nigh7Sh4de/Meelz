@@ -5,7 +5,7 @@ var EditableInfoProperty = React.createClass({
             { className: "input-group" },
             React.createElement(
                 "span",
-                { className: "input-group-addon col-sm-12" },
+                { className: "input-group-addon" },
                 this.props.name
             ),
             React.createElement("input", { className: "form-control", id: this.props.name, type: "text", onChange: this.props.onchange, ref: "{this.props.name}",
@@ -47,7 +47,7 @@ var CreateFoodPage = React.createClass({
         return this.props.food != null && this.props.food.name != null;
     },
     render: function () {
-        var props = _props.map((function (p) {
+        var props = _settings.props.map((function (p) {
             return React.createElement(EditableInfoProperty, { onchange: this.handleChange, ref: p, key: p, name: p, value: this.state[p] });
         }).bind(this));
         return React.createElement(

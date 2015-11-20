@@ -2,7 +2,7 @@ var EditableInfoProperty = React.createClass({
     render: function() {
         return (
             <div className="input-group">
-                <span className="input-group-addon col-sm-12">{this.props.name}</span>
+                <span className="input-group-addon">{this.props.name}</span>
                 <input className="form-control" id={this.props.name} type="text" onChange={this.props.onchange} ref="{this.props.name}"
                     defaultValue={this.props.value}/>
             </div>
@@ -46,7 +46,7 @@ var CreateFoodPage = React.createClass({
         return this.props.food != null && this.props.food.name != null;
     },
     render: function() {
-        var props = _props.map(function (p) {
+        var props = _settings.props.map(function (p) {
             return <EditableInfoProperty onchange={this.handleChange} ref={p} key={p} name={p} value={this.state[p]} />
         }.bind(this))
         return (
