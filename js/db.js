@@ -1,6 +1,6 @@
 var _settings = {
     "home_cols": ["calories"],
-    "props": ["name"]
+    "props": ["name", "calories"]
 };
 
 var _propTypes = ["text", "number"];
