@@ -1,4 +1,6 @@
 var InfoProperty = React.createClass({
+    displayName: "InfoProperty",
+
     render: function () {
         return React.createElement(
             "li",
@@ -9,6 +11,8 @@ var InfoProperty = React.createClass({
 });
 
 var CreateNewInfoProp = React.createClass({
+    displayName: "CreateNewInfoProp",
+
     hasError: "has-error",
     submit: function () {
         var value = this.refs.name.value;
@@ -48,6 +52,8 @@ var CreateNewInfoProp = React.createClass({
 });
 
 var EditHomePageCols = React.createClass({
+    displayName: "EditHomePageCols",
+
     render: function () {
 
         React.createElement(
@@ -81,6 +87,8 @@ var EditHomePageCols = React.createClass({
 });
 
 var EditInfoPropsPage = React.createClass({
+    displayName: "EditInfoPropsPage",
+
     back: function () {
         redraw(React.createElement(DaysPage, null));
     },

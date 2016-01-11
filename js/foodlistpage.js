@@ -1,4 +1,6 @@
 var CreateFoodButton = React.createClass({
+    displayName: "CreateFoodButton",
+
     handleClick: function (event) {
         redraw(React.createElement(CreateFoodPage, null));
     },
@@ -25,6 +27,8 @@ var CreateFoodButton = React.createClass({
 // })
 
 var FoodItem = React.createClass({
+    displayName: "FoodItem",
+
     addfood: function () {
         CurrentDay.food.push(this.props.food.id);
         if (this.props.refresh != null) this.props.refresh();
@@ -71,18 +75,20 @@ var FoodItem = React.createClass({
 });
 
 var FoodItemList = React.createClass({
+    displayName: "FoodItemList",
+
     refresh: function () {
         this.forceUpdate();
     },
     render: function () {
-        var foods = _foods.map((function (food) {
+        var foods = _foods.map(function (food) {
             if (CurrentDay == null) return React.createElement(FoodItem, { food: food, key: food.name });
 
             var count = CurrentDay.food.filter(function (d) {
                 return d == food.id;
             }).length;
             return React.createElement(FoodItem, { count: count, refresh: this.refresh, food: food, key: food.name });
-        }).bind(this));
+        }.bind(this));
         if (CurrentDay != null && CurrentDay.archive) {
             for (var i = 0, j = 0; i < foods.length; i++, j++) if (CurrentDay.food.indexOf(j) < 0) foods.splice(i--, 1);
         }
@@ -95,6 +101,8 @@ var FoodItemList = React.createClass({
 });
 
 var FoodItemListPage = React.createClass({
+    displayName: "FoodItemListPage",
+
     back: function () {
         redraw(React.createElement(DaysPage, null));
     },

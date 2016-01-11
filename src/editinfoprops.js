@@ -34,6 +34,7 @@ var CreateNewInfoProp = React.createClass({
                         <span className="input-group-btn">
                             <button onClick={this.submit} className="btn btn-default">+ Add</button>
                         </span>
+                        
                 </div>
             </div>
         );

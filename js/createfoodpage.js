@@ -1,4 +1,6 @@
 var EditableInfoProperty = React.createClass({
+    displayName: "EditableInfoProperty",
+
     render: function () {
         return(
             // <div className="input-group form-group">
@@ -18,6 +20,8 @@ var EditableInfoProperty = React.createClass({
 });
 
 var CreateFoodPage = React.createClass({
+    displayName: "CreateFoodPage",
+
     handleClick: function (event) {
         event.preventDefault();
         var duplicates = false;
@@ -52,14 +56,14 @@ var CreateFoodPage = React.createClass({
     },
     render: function () {
         var valid = true;
-        var props = _settings.props.map((function (p) {
+        var props = _settings.props.map(function (p) {
             var classes = "input-group form-group";
             if (isNaN(this.state[p]) && this.state[p] != null && p != 'name') {
                 classes += " has-error";
                 valid = false;
             }
             return React.createElement(EditableInfoProperty, { classes: classes, onchange: this.handleChange, ref: p, key: p, name: p, value: this.state[p] });
-        }).bind(this));
+        }.bind(this));
         return React.createElement(
             "form",
             null,

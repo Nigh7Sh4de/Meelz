@@ -11,19 +11,21 @@ var GetTotal = function (prop, dayId) {
 };
 
 var DayItem = React.createClass({
+    displayName: "DayItem",
+
     viewfood: function () {
         CurrentDay = _days.findById(this.props.id);
         redraw(React.createElement(FoodItemListPage, null));
     },
     render: function () {
-        var totals = _settings.home_cols.map((function (c) {
+        var totals = _settings.home_cols.map(function (c) {
             var t = GetTotal(c, this.props.id);
             return React.createElement(
                 "td",
                 { key: c },
                 t
             );
-        }).bind(this));
+        }.bind(this));
         return React.createElement(
             "tr",
             { key: this.props.id },
@@ -47,19 +49,21 @@ var DayItem = React.createClass({
 });
 
 var DayToday = React.createClass({
+    displayName: "DayToday",
+
     addfood: function () {
         CurrentDay = _days.findById(this.props.id);
         redraw(React.createElement(FoodItemListPage, null));
     },
     render: function () {
-        var totals = _settings.home_cols.map((function (c) {
+        var totals = _settings.home_cols.map(function (c) {
             var t = GetTotal(c, this.props.id);
             return React.createElement(
                 "td",
                 { key: c },
                 t
             );
-        }).bind(this));
+        }.bind(this));
         return React.createElement(
             "tr",
             { key: this.props.id },
@@ -83,6 +87,8 @@ var DayToday = React.createClass({
 });
 
 var DaysPage = React.createClass({
+    displayName: "DaysPage",
+
     createday: function (e) {
         if (e.target.id != "override" && CurrentDay.date == new Date().toDateString()) {
             this.open();
@@ -115,11 +121,11 @@ var DaysPage = React.createClass({
     render: function () {
         CurrentDay = _days[_days.length - 1];
         var c = 1;
-        var days = _days.map((function (d) {
+        var days = _days.map(function (d) {
             if (c++ < _days.length) return React.createElement(DayItem, { date: d.date, total: d.total, id: d.id, key: d.id });else {
                 return React.createElement(DayToday, { date: d.date, total: d.total, id: d.id, key: d.id });
             }
-        }).bind(this)).reverse();
+        }.bind(this)).reverse();
 
         var home_cols = _settings.home_cols.map(function (c) {
             return React.createElement(
