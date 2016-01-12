@@ -107,6 +107,9 @@ var FoodItemListPage = React.createClass({
         var FoodItemListPageNav = React.createClass({
             displayName: "FoodItemListPageNav",
 
+            createfood: function () {
+                redraw(CreateFoodPage);
+            },
             back: function () {
                 redraw(DaysPage);
             },
@@ -121,6 +124,16 @@ var FoodItemListPage = React.createClass({
                             "a",
                             { href: "#" },
                             "Back"
+                        )
+                    ),
+                    React.createElement(
+                        "li",
+                        { key: "cf", onClick: this.createfood },
+                        React.createElement(
+                            "a",
+                            { href: "#" },
+                            React.createElement("span", { className: "glyphicon glyphicon-plus" }),
+                            " Food"
                         )
                     )
                 );

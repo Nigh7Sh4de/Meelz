@@ -82,6 +82,9 @@ var FoodItemList = React.createClass({
 var FoodItemListPage = React.createClass({
     getnav: function() {
         var FoodItemListPageNav = React.createClass({
+            createfood: function() {
+                redraw(CreateFoodPage);
+            },
             back: function() {
                 redraw(DaysPage)
             },
@@ -89,6 +92,7 @@ var FoodItemListPage = React.createClass({
                 return (
                     <ul className="nav navbar-nav">
                         <li key="bk" onClick={this.back}><a href="#">Back</a></li>
+                        <li key="cf" onClick={this.createfood}><a href="#"><span className="glyphicon glyphicon-plus"></span> Food</a></li>
                     </ul>
                 )
             }
