@@ -12,18 +12,44 @@ var EditableInfoProperty = React.createClass({
 })
 
 var CreateFoodPage = React.createClass({
-    handleClick: function(event) {
-        event.preventDefault();
-        var duplicates = false;
-        var foundFood = this.props.food != null ? _foods.findById(this.props.food.id)
-                        : null;
-        if (foundFood == null) {
-            _foods.push(this.state);
-        }
-        else {
-            _foods[_foods.indexOf(foundFood)] = this.state;
-        }
-        redraw(FoodItemListPage);
+    getnav: function() {
+
+        var createfoodpage = this;
+
+        var CreateFoodPageNav = React.createClass({
+            handleClick: function(event) {
+                event.preventDefault();
+                if (!this.valid())
+                    return false;
+
+                var duplicates = false;
+                var foundFood = createfoodpage.props.food != null ? _foods.findById(createfoodpage.props.food.id)
+                                : null;
+                if (foundFood == null) {
+                    _foods.push(createfoodpage.state);
+                }
+                else {
+                    _foods[_foods.indexOf(foundFood)] = createfoodpage.state;
+                }
+                redraw(FoodItemListPage);
+            },
+            back: function() {
+                redraw(FoodItemListPage);
+            },
+            valid: function() {
+                return createfoodpage.state.name && createfoodpage.valid(createfoodpage.state);
+            },
+            render: function() {
+                return (
+                    <ul className="nav navbar-nav">
+                        <li key="bk" onClick={this.back}><a href="#">Back</a></li>
+                        <li key="cf" className={this.valid() ? "" : "disabled"} onClick={this.handleClick}><a href="#">{createfoodpage.edit() ? "Save" : "Create"}</a></li>
+                    </ul>
+                )
+            }
+        });
+
+        return <CreateFoodPageNav />;
     },
     getInitialState: function() {
         // console.log(this.props.food);
@@ -39,13 +65,22 @@ var CreateFoodPage = React.createClass({
         state[e.target.id] = e.target.id == 'name' || isNaN(value) || value == '' ?
                                     value : parseInt(value);
         this.setState(state);
+
+        renav(this);
+
         // console.log(this.state.name);
-    },
-    back: function() {
-        redraw(FoodItemListPage);
     },
     edit: function() {
         return this.props.food != null && this.props.food.name != null;
+    },
+    valid: function(state) {
+        state = state || this.state;
+        var valid = true;
+        _settings.props.forEach(function(p) {
+            if (isNaN(state[p]) && state[p] != null && p != 'name')
+                valid = false;
+        });
+        return valid;
     },
     render: function() {
         var valid = true;
@@ -60,10 +95,6 @@ var CreateFoodPage = React.createClass({
         return (
             <form>
                 {props}
-                <div className="btn-group">
-                    <button className="btn btn-default" onClick={this.back}>Back</button>
-                    <button className="btn btn-primary" disabled={!this.state.name || !valid} onClick={this.handleClick}>{this.edit() ? "Save" : "Create"}</button>
-                </div>
             </form>
         );
     }

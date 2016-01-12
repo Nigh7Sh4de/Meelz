@@ -22,16 +22,59 @@ var EditableInfoProperty = React.createClass({
 var CreateFoodPage = React.createClass({
     displayName: "CreateFoodPage",
 
-    handleClick: function (event) {
-        event.preventDefault();
-        var duplicates = false;
-        var foundFood = this.props.food != null ? _foods.findById(this.props.food.id) : null;
-        if (foundFood == null) {
-            _foods.push(this.state);
-        } else {
-            _foods[_foods.indexOf(foundFood)] = this.state;
-        }
-        redraw(FoodItemListPage);
+    getnav: function () {
+
+        var createfoodpage = this;
+
+        var CreateFoodPageNav = React.createClass({
+            displayName: "CreateFoodPageNav",
+
+            handleClick: function (event) {
+                event.preventDefault();
+                if (!this.valid()) return false;
+
+                var duplicates = false;
+                var foundFood = createfoodpage.props.food != null ? _foods.findById(createfoodpage.props.food.id) : null;
+                if (foundFood == null) {
+                    _foods.push(createfoodpage.state);
+                } else {
+                    _foods[_foods.indexOf(foundFood)] = createfoodpage.state;
+                }
+                redraw(FoodItemListPage);
+            },
+            back: function () {
+                redraw(FoodItemListPage);
+            },
+            valid: function () {
+                return createfoodpage.state.name && createfoodpage.valid(createfoodpage.state);
+            },
+            render: function () {
+                return React.createElement(
+                    "ul",
+                    { className: "nav navbar-nav" },
+                    React.createElement(
+                        "li",
+                        { key: "bk", onClick: this.back },
+                        React.createElement(
+                            "a",
+                            { href: "#" },
+                            "Back"
+                        )
+                    ),
+                    React.createElement(
+                        "li",
+                        { key: "cf", className: this.valid() ? "" : "disabled", onClick: this.handleClick },
+                        React.createElement(
+                            "a",
+                            { href: "#" },
+                            createfoodpage.edit() ? "Save" : "Create"
+                        )
+                    )
+                );
+            }
+        });
+
+        return React.createElement(CreateFoodPageNav, null);
     },
     getInitialState: function () {
         // console.log(this.props.food);
@@ -46,13 +89,21 @@ var CreateFoodPage = React.createClass({
         // if (parseInt(value))
         state[e.target.id] = e.target.id == 'name' || isNaN(value) || value == '' ? value : parseInt(value);
         this.setState(state);
+
+        renav(this);
+
         // console.log(this.state.name);
-    },
-    back: function () {
-        redraw(FoodItemListPage);
     },
     edit: function () {
         return this.props.food != null && this.props.food.name != null;
+    },
+    valid: function (state) {
+        state = state || this.state;
+        var valid = true;
+        _settings.props.forEach(function (p) {
+            if (isNaN(state[p]) && state[p] != null && p != 'name') valid = false;
+        });
+        return valid;
     },
     render: function () {
         var valid = true;
@@ -67,21 +118,7 @@ var CreateFoodPage = React.createClass({
         return React.createElement(
             "form",
             null,
-            props,
-            React.createElement(
-                "div",
-                { className: "btn-group" },
-                React.createElement(
-                    "button",
-                    { className: "btn btn-default", onClick: this.back },
-                    "Back"
-                ),
-                React.createElement(
-                    "button",
-                    { className: "btn btn-primary", disabled: !this.state.name || !valid, onClick: this.handleClick },
-                    this.edit() ? "Save" : "Create"
-                )
-            )
+            props
         );
     }
 });
