@@ -34,7 +34,7 @@ var CreateNewInfoProp = React.createClass({
                         <span className="input-group-btn">
                             <button onClick={this.submit} className="btn btn-default">+ Add</button>
                         </span>
-                        
+
                 </div>
             </div>
         );
@@ -60,7 +60,7 @@ var EditHomePageCols = React.createClass({
 
 var EditInfoPropsPage = React.createClass({
     back: function() {
-        redraw(<DaysPage />);
+        redraw(DaysPage);
     },
     render: function() {
         var props = _settings.props.map(function(p) {

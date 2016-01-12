@@ -90,7 +90,7 @@ var EditInfoPropsPage = React.createClass({
     displayName: "EditInfoPropsPage",
 
     back: function () {
-        redraw(React.createElement(DaysPage, null));
+        redraw(DaysPage);
     },
     render: function () {
         var props = _settings.props.map(function (p) {

@@ -2,7 +2,7 @@ var CreateFoodButton = React.createClass({
     displayName: "CreateFoodButton",
 
     handleClick: function (event) {
-        redraw(React.createElement(CreateFoodPage, null));
+        redraw(CreateFoodPage);
     },
     render: function () {
         return React.createElement(
@@ -15,7 +15,7 @@ var CreateFoodButton = React.createClass({
 
 // var SettingsButton = React.createClass({
 //     handleClick: function(e) {
-//         redraw(<EditInfoPropsPage />);
+//         redraw(EditInfoPropsPage);
 //     },
 //     render: function() {
 //         return (
@@ -35,7 +35,7 @@ var FoodItem = React.createClass({
         return;
     },
     editfood: function (e) {
-        redraw(React.createElement(CreateFoodPage, { food: this.props.food }));
+        redraw(CreateFoodPage, { food: this.props.food });
     },
     render: function () {
         return React.createElement(
@@ -104,7 +104,7 @@ var FoodItemListPage = React.createClass({
     displayName: "FoodItemListPage",
 
     back: function () {
-        redraw(React.createElement(DaysPage, null));
+        redraw(DaysPage);
     },
     render: function () {
         return React.createElement(

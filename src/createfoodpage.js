@@ -23,10 +23,10 @@ var CreateFoodPage = React.createClass({
         else {
             _foods[_foods.indexOf(foundFood)] = this.state;
         }
-        redraw(<FoodItemListPage />);
+        redraw(FoodItemListPage);
     },
     getInitialState: function() {
-        console.log(this.props.food);
+        // console.log(this.props.food);
         return this.props.food || {
             name: this.props.food != null ? this.props.food.name : null,
             id: this.props.food != null ? this.props.food.id : _foods.generateId()
@@ -39,10 +39,10 @@ var CreateFoodPage = React.createClass({
         state[e.target.id] = e.target.id == 'name' || isNaN(value) || value == '' ?
                                     value : parseInt(value);
         this.setState(state);
-        console.log(this.state.name);
+        // console.log(this.state.name);
     },
     back: function() {
-        redraw(<FoodItemListPage />);
+        redraw(FoodItemListPage);
     },
     edit: function() {
         return this.props.food != null && this.props.food.name != null;
