@@ -59,8 +59,21 @@ var EditHomePageCols = React.createClass({
 })
 
 var EditInfoPropsPage = React.createClass({
-    back: function() {
-        redraw(DaysPage);
+    getnav: function() {
+        var FoodItemListPageNav = React.createClass({
+            back: function() {
+                redraw(DaysPage);
+            },
+            render: function() {
+                return (
+                    <ul className="nav navbar-nav">
+                        <li key="bk" onClick={this.back}><a href="#">Back</a></li>
+                    </ul>
+                )
+            }
+        });
+
+        return <FoodItemListPageNav />;
     },
     render: function() {
         var props = _settings.props.map(function(p) {
@@ -73,11 +86,6 @@ var EditInfoPropsPage = React.createClass({
 
         return (
             <div>
-                <span className="input-btn">
-                    <button onClick={this.back} className="btn btn-default">Back</button>
-                </span>
-
-
                 <h4>Set food information properties</h4>
                 <CreateNewInfoProp view={this} list={'props'} />
                 <ul className="list-group">

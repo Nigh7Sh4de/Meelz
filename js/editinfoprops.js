@@ -89,8 +89,31 @@ var EditHomePageCols = React.createClass({
 var EditInfoPropsPage = React.createClass({
     displayName: "EditInfoPropsPage",
 
-    back: function () {
-        redraw(DaysPage);
+    getnav: function () {
+        var FoodItemListPageNav = React.createClass({
+            displayName: "FoodItemListPageNav",
+
+            back: function () {
+                redraw(DaysPage);
+            },
+            render: function () {
+                return React.createElement(
+                    "ul",
+                    { className: "nav navbar-nav" },
+                    React.createElement(
+                        "li",
+                        { key: "bk", onClick: this.back },
+                        React.createElement(
+                            "a",
+                            { href: "#" },
+                            "Back"
+                        )
+                    )
+                );
+            }
+        });
+
+        return React.createElement(FoodItemListPageNav, null);
     },
     render: function () {
         var props = _settings.props.map(function (p) {
@@ -104,15 +127,6 @@ var EditInfoPropsPage = React.createClass({
         return React.createElement(
             "div",
             null,
-            React.createElement(
-                "span",
-                { className: "input-btn" },
-                React.createElement(
-                    "button",
-                    { onClick: this.back, className: "btn btn-default" },
-                    "Back"
-                )
-            ),
             React.createElement(
                 "h4",
                 null,
