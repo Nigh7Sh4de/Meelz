@@ -103,22 +103,36 @@ var FoodItemList = React.createClass({
 var FoodItemListPage = React.createClass({
     displayName: "FoodItemListPage",
 
-    back: function () {
-        redraw(DaysPage);
+    getnav: function () {
+        var FoodItemListPageNav = React.createClass({
+            displayName: "FoodItemListPageNav",
+
+            back: function () {
+                redraw(DaysPage);
+            },
+            render: function () {
+                return React.createElement(
+                    "ul",
+                    { className: "nav navbar-nav" },
+                    React.createElement(
+                        "li",
+                        { key: "bk", onClick: this.back },
+                        React.createElement(
+                            "a",
+                            { href: "#" },
+                            "Back"
+                        )
+                    )
+                );
+            }
+        });
+
+        return React.createElement(FoodItemListPageNav, null);
     },
     render: function () {
         return React.createElement(
             "div",
             null,
-            React.createElement(
-                "div",
-                { className: "btn-group", style: { display: "flex" } },
-                React.createElement(
-                    "button",
-                    { onClick: this.back, className: "btn btn-default" },
-                    "Back"
-                )
-            ),
             React.createElement(
                 ReactBootstrap.Table,
                 { hover: true, style: { width: "1%", whiteSpace: "nowrap" } },

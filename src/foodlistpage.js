@@ -80,15 +80,25 @@ var FoodItemList = React.createClass({
 })
 
 var FoodItemListPage = React.createClass({
-    back: function() {
-        redraw(DaysPage)
+    getnav: function() {
+        var FoodItemListPageNav = React.createClass({
+            back: function() {
+                redraw(DaysPage)
+            },
+            render: function() {
+                return (
+                    <ul className="nav navbar-nav">
+                        <li key="bk" onClick={this.back}><a href="#">Back</a></li>
+                    </ul>
+                )
+            }
+        });
+
+        return <FoodItemListPageNav />;
     },
     render: function() {
         return (
             <div>
-                <div className="btn-group" style={{display: "flex"}}>
-                    <button onClick={this.back} className="btn btn-default">Back</button>
-                </div>
                 <ReactBootstrap.Table hover style={{width: "1%", whiteSpace: "nowrap"}}>
                     <FoodItemList />
                 </ReactBootstrap.Table>
