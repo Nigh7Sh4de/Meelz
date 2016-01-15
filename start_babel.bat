@@ -1,1 +1,1 @@
-babel --presets react src --watch --out-dir js
+babel --presets react src --watch --out-dir public/js
